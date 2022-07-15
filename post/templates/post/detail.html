@@ -1,0 +1,65 @@
+{% extends 'default/base.html' %}
+
+
+{% block content %}
+{% if post %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>
+            <a href="{% url 'post:post_detail' post.pk %}">
+                {{ post.title }}
+            </a>
+        </h2>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" style="width:100%">
+        {% endif %}
+        <p>
+            <small>
+                <i class="text-muted">
+                    {{ post.pub_date }}
+                </i>, Catégorie : <a href="{% url 'post:category_posts' post.category.pk %}">
+                    {{ post.category }}
+                </a>
+            </small>
+        </p>
+        <p class="text-justify">
+            {{ post.body }}
+        </p>
+        <hr>
+        <h3>Commentaires</h3>
+        <form action="{% url 'post:post_detail' post.pk %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Commenter">
+        </form>
+        <hr>
+        {% for comment in post.comments.all %}
+            <p>
+                <a href="">{{ comment.author }}</a> <small><i class="text-muted">{{ comment.pub_date }}</i></small>
+            </p>
+            <p class="text-justify">
+                {{ comment.body }}
+            </p>
+            <p class="text-muted">
+                {{ comment.responses.count }} Réponse{{ comment.responses.count|pluralize }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'post:comment_reply' comment.pk %}">Répondre</a>
+            </p>
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-md-4">
+        <h4>Posts similaires</h4>
+        {% if related_posts %}
+            {% for rp in related_posts %}
+                {% if post != rp %}
+                    <a href="{% url 'post:post_detail' rp.pk %}">{{ rp.title }}</a><br>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+</div>
+
+{% endif %}
+{% endblock content %}

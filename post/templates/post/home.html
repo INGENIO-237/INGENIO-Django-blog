@@ -1,0 +1,21 @@
+{% extends 'default/base.html' %}
+
+
+{% block content %}
+    <h1>Bienvenue !</h1>
+    <div class="jumbotron">
+        <h5>Hello,</h5>
+        <p class="text-justify">
+            Nous vous souhaitons la bienvenue sur notre blog. Ici nous parlons de tout et de rien, mais particulièrement de ce qui s'apparente à la programmation.
+            Nous espérons réellement que vous y touverez votre compte.
+        </p>
+        <p>
+            Merci.
+        </p>
+        <p class="text-right">INGENIO</p>
+        <hr>
+        <p class="text-justify">
+            <a href="{% url 'post:posts' %}" class="btn btn-primary">Voir les posts</a>
+        </p>
+    </div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'default/base.html' %}
+
+
+{% block content %}
+    {% if category %}
+        <h2>{{ category.category }}</h2>
+        {% for post in category.posts.all %}
+            <a href="{% url 'post:post_detail' post.pk %}">
+                {{ post.title }}
+            </a>
+            <p>
+                <small>
+                    <i>
+                        {{ post.pub_date }}
+                    </i>
+                </small>
+            </p>
+            <p class="text-justify">
+                {{ post.body|truncatewords:15 }}
+            </p>
+            <p class="text-muted">
+                {{ post.comments.count }} Commentaire{{ post.comments.count|pluralize }}
+            </p>
+            <p>
+                <a href="{% url 'post:post_detail' post.pk %}" class="btn btn-primary">Lire la suite</a>
+            </p>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

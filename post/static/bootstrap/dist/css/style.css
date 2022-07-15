@@ -1,0 +1,20 @@
+@import url(fonts.css);
+
+a:hover{
+    text-decoration: none;
+}
+
+body{
+    font-family: 'Roboto', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+table .table .posts{
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 736px){
+    table .table .posts{
+        flex-direction: column !important;
+    }
+}

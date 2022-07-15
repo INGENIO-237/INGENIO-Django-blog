@@ -1,0 +1,33 @@
+<nav class="navbar top-navbar fixed-top navbar-expand-md bg-light navbar-light mb-auto">
+    <div class="navbar-header">
+        <a href="{% url 'post:home' %}" class="navbar-brand">
+            <!-- <b class="logo-icon p-l-10">
+                <img src="../../assets/images/logo-icon.png" alt="homepage" class="light-logo" />               
+            </b> -->
+            <span class="navbar-brand logo-text">
+                Blog                
+            </span>
+        </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+
+        <ul class="navbar-nav ml-auto mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'post:home' %}">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'post:posts' %}">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Newsletter</a>
+            </li>
+        </ul>
+        <form method="GET" action="{% url 'post:search' %}" class="d-flex">
+            <input type="search" class="form-control mr-2" name="query" placeholder="Recherche">
+            <button class="btn btn-outline-success" type="submit">Rechercher</button>
+        </form>
+    </div>
+    <a class="topbartoggler d-block d-md-none" href="#" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </a>
+</nav>

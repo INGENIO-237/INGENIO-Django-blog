@@ -1,0 +1,40 @@
+{% extends 'default/base.html' %}
+
+{% block content %}
+    <h3>Résultats pour : </h3> "{{ query }}"
+    <h4>Catégories</h4>
+    {% if categories %}
+        {% for category in categories %}
+            <p>
+                <a href="{% url 'post:category_posts' category.pk %}">
+                    {{ category.category }}
+                </a>
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>
+            Pas de catégorie correspondante.
+        </p>
+    {% endif %}
+    <h4>Posts</h4>
+    {% if posts %}
+        {% for post in posts %}
+            <p>
+                <a href="{% url 'post:post_detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+                <small>
+                    <i>
+                        {{ post.pub_date }}
+                    </i>, Catégorie : <a href="">
+                        {{ post.category }}
+                    </a>
+                </small>
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>
+            Pas de post correspondant.
+        </p>
+    {% endif %}
+{% endblock content %}
