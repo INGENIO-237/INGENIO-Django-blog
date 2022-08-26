@@ -1,27 +1,17 @@
-import datetime
-from unicodedata import category
-
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Q
-from django.views import generic
-from django.utils import timezone
 
 from .models import Category, Comment, Post
 from .forms import CommentForm, CommentResponseForm
 
-now = timezone.now()
-au_plutard = now - datetime.timedelta(days=7)
 def home(request):
     return render(request, 'post/home.html')
 
 def posts(request):
-    model = Post
     template = 'post/posts.html'
-    archives = model.objects.filter(pub_date__lte=au_plutard)
-    posts = model.objects.filter(Q(pub_date__gte=au_plutard) & Q(pub_date__lte=now))
+    posts = Post.objects.all()
     context = {
-        'archives': archives,
         'posts': posts,
     }
 
@@ -70,7 +60,7 @@ def commentReply(request, pk):
 
 def search(request):
     query = request.GET.get('query', '')
-    posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query) & Q(pub_date__lte=now) & Q(pub_date__gte=au_plutard))
+    posts = Post.objects.filter(Q(title__icontains=query) | Q(body__icontains=query))
     categories = Category.objects.filter(category__icontains=query)
     context = {
         'query': query,
